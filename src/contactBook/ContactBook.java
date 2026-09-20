@@ -70,50 +70,43 @@ public class ContactBook {
 
     private int searchIndex(String name) {
         int i = 0;
-        int result = -1;
-        boolean found = false;
-        while (i<counter && !found)
+        while (i < counter) {
             if (contacts[i].getName().equals(name))
-                found = true;
-            else
-                i++;
-        if (found) result = i;
-        return result;
+                return i;
+            i++;
+        }
+        return -1;
     }
 
     private int searchIndex(int phone) {
         int i = 0;
-        int result = -1;
-        boolean found = false;
-        while (i < counter && !found) {
+        while (i < counter) {
             if (contacts[i].getPhone() == phone)
-                found = true;
-            else
-                i++;
+                return i;
+            i++;
         }
-        if (found)
-            result = i;
-        return result;
+        return -1;
     }
 
     private void resize() {
-        Contact tmp[] = new Contact[2*contacts.length];
+        Contact[] tmp = new Contact[2*contacts.length];
         for (int i=0;i<counter; i++)
             tmp[i] = contacts[i];
         contacts = tmp;
     }
 
+
     public boolean verifyPhoneNumber(){
-        int i = 0;
-        while (contacts[i + 1] != null){
-            int p = i + 1;
-            while(contacts[p] != null) {
-                if (contacts[i].getPhone() == contacts[p].getPhone())
+        int current = 0;
+        while (current < counter) {
+            int next = current + 1;
+            int currentPhone = contacts[current].getPhone();
+            while (next < counter) {
+                if (currentPhone == contacts[next].getPhone())
                     return true;
-                else
-                    p++;
+                next++;
             }
-            i++;
+            current++;
         }
         return false;
     }
