@@ -103,6 +103,21 @@ public class ContactBook {
         contacts = tmp;
     }
 
+    public boolean verifyPhoneNumber(){
+        int i = 0;
+        while (contacts[i + 1] != null){
+            int p = i + 1;
+            while(contacts[p] != null) {
+                if (contacts[i].getPhone() == contacts[p].getPhone())
+                    return true;
+                else
+                    p++;
+            }
+            i++;
+        }
+        return false;
+    }
+
     public void initializeIterator() {
         currentContact = 0;
     }
